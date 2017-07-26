@@ -2,6 +2,7 @@ package com.robopoes.robotics.webserver;
 
 public class Routes {
 	public static class Web {
+		public static final String ROOT = "/";
 		public static final String INDEX = "/index";
 		public static final String LOGIN = "/login";
 		public static final String LOGOUT = "/logout";

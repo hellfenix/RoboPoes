@@ -25,6 +25,7 @@ public class SparkWebServer {
 	private int portNumber;
 	private ResponseTransformer respTransformer;
 	
+	@Inject public ControlManualHandler controlManualHandler;
 	@Inject public RestApiController restApiController;
 	@Inject public IndexController indexController;
 	
@@ -40,13 +41,14 @@ public class SparkWebServer {
 	    staticFiles.expireTime(600L);
 	    
 	    // WebSockets
-	    webSocket(Routes.WebSockets.CONTROL, ControlManualHandler.class);
+	    webSocket(Routes.WebSockets.CONTROL, controlManualHandler);
 	    webSocket(Routes.WebSockets.LIVE_DATA, LiveDataHandler.class);
 	    
 	    // API REST
 	    post(Routes.Api.DRIVING_MODE, restApiController.changeDrivingMode, respTransformer);
 	    
 	    // Web
+	    get(Routes.Web.ROOT, LoginController.handleRootRequest);
 	    get(Routes.Web.LOGIN, LoginController.serveLoginPage, new FreeMarkerEngine());
 	    get(Routes.Web.INDEX, indexController.serveIndexPage, new FreeMarkerEngine());
 	    

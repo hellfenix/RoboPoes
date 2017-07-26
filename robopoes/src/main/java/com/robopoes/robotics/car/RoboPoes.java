@@ -12,6 +12,7 @@ import com.robopoes.robotics.car.drivers.DrivingController;
 import com.robopoes.robotics.car.drivers.FollowDrivingController;
 import com.robopoes.robotics.car.drivers.ManualDrivingController;
 import com.robopoes.robotics.car.drivers.PatrolDrivingController;
+import com.robopoes.robotics.enums.DrivingCommand;
 import com.robopoes.robotics.enums.DrivingMode;
 
 public class RoboPoes {
@@ -33,11 +34,11 @@ public class RoboPoes {
 	}
 	
 	public synchronized void start() {
-		
+		// until refactor start in constructor
 	}
 	
 	public synchronized void stop() {
-		
+		drivingControllers.get(activeDrivingMode).stop();
 	}
 	
 	public DrivingMode getActiveDrivingMode() {
@@ -47,5 +48,10 @@ public class RoboPoes {
 	public void setActiveDrivingMode(DrivingMode activeDrivingMode) {
 		log.debug("Setting driving mode to: {}", activeDrivingMode);
 		this.activeDrivingMode = activeDrivingMode;
+	}
+	
+	public void addManualCommand(DrivingCommand cmd) {
+		// Default implementation does nothing so no need to check if manual is active
+		drivingControllers.get(activeDrivingMode).addCommandToQueue(cmd);
 	}
 }

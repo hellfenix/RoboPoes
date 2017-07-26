@@ -13,6 +13,12 @@ import spark.Route;
 import spark.TemplateViewRoute;
 
 public class LoginController {
+	public static Route handleRootRequest = (Request request, Response response) -> {
+		response.redirect(Routes.Web.LOGIN);
+		
+		return null;
+	};
+	
 	public static TemplateViewRoute serveLoginPage = (Request request, Response response) -> {
 		Map<String, Object> model = new HashMap<>();
 		//model.put("loggedOut", removeSessionAttrLoggedOut(request));
